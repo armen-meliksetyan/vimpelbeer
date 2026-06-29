@@ -1,0 +1,3 @@
+<?php
+$_GET['lang'] = 'en';
+require dirname(__DIR__) . '/index.php';

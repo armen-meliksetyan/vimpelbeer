@@ -1,0 +1,60 @@
+Options -MultiViews
+DirectoryIndex index.php
+
+# ── Compression ───────────────────────────────────────────────────────────────
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json text/xml application/xml text/plain image/svg+xml
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+    BrowserMatch ^Mozilla/4\.0[678] no-gzip
+    BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+</IfModule>
+
+# ── Browser Caching ───────────────────────────────────────────────────────────
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/webp             "access plus 1 year"
+    ExpiresByType image/jpeg             "access plus 1 year"
+    ExpiresByType image/png              "access plus 1 year"
+    ExpiresByType image/svg+xml         "access plus 1 year"
+    ExpiresByType image/x-icon          "access plus 1 year"
+    ExpiresByType font/ttf              "access plus 1 year"
+    ExpiresByType font/woff2            "access plus 1 year"
+    ExpiresByType application/font-woff2 "access plus 1 year"
+    ExpiresByType text/css              "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType text/javascript       "access plus 1 month"
+    ExpiresByType video/mp4             "access plus 1 month"
+    ExpiresByType video/quicktime       "access plus 1 month"
+</IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch "\.(webp|jpg|jpeg|png|ico|svg|ttf|woff2)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    <FilesMatch "\.(css|js)$">
+        Header set Cache-Control "public, max-age=2592000"
+    </FilesMatch>
+    <FilesMatch "\.(mp4|mov)$">
+        Header set Cache-Control "public, max-age=2592000"
+        Header set Accept-Ranges bytes
+    </FilesMatch>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    Header append Vary Accept-Encoding
+</IfModule>
+
+# ── URL Routing ───────────────────────────────────────────────────────────────
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Language home pages: /hy/ /en/ /ru/
+RewriteRule ^(hy|en|ru)/?$ $1/index.php [L]
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Site root → Armenian
+RewriteRule ^$ hy/ [R=301,L]
+</IfModule>

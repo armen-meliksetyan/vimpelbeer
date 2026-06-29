@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Disallow internal/config directories
+Disallow: /config/
+
+# Sitemap location
+Sitemap: https://vimpelbeer.am/sitemap.xml
+
+# Crawl-delay for polite bots
+Crawl-delay: 1

@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * Copy to contact.local.php when setting up a new deploy.
+ * contact.local.php is site-specific and should travel with the Vimpel deploy.
+ */
+
+define('CONTACT_RECIPIENT_EMAIL', 'info@vimpelbeer.am');
+
+/** From address for PHP mail(). */
+define('CONTACT_MAIL_FROM', 'info@vimpelbeer.am');
+
+/*
+ * Optional SMTP fallback (disabled — contact form uses PHP mail() only).
+ *
+ * define('CONTACT_SMTP_HOST', 'smtp.mail.ru');
+ * define('CONTACT_SMTP_PORT', 465);
+ * define('CONTACT_SMTP_USER', 'client@inbox.ru');
+ * define('CONTACT_SMTP_PASSWORD', 'your_app_password_here');
+ * define('CONTACT_SMTP_FROM', 'client@inbox.ru');
+ */
